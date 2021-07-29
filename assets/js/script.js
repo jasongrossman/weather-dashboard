@@ -1,8 +1,24 @@
 //global variable declarations
+var textInput = document.querySelector(".search-box");
+console.log(textInput);
 
-var getWeatherApi = function(event) {
-    event.preventDefault();
+var searchSubmitHandler = function(event) {
+    // prevent page from refreshing
+  event.preventDefault();
 
+  var citySearch = textInput.value.trim();
+  console.log(citySearch);
+
+  if(citySearch) {
+      getWeatherApi(citySearch);
+  } else {
+      alert("Please input a city name");
+  }
+  };
+
+
+var getWeatherApi = function() {
+    // event.preventDefault();
     fetch("https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=4bdf76bd7f935435d6ca49a5f4268f54")
     .then(function(response) {
       // request was successful
@@ -22,5 +38,5 @@ var getWeatherApi = function(event) {
 }
 
 //event handler for search function
-$("#search-now").on("click", getWeatherApi);
+$("#search-now").on("click", searchSubmitHandler);
 
