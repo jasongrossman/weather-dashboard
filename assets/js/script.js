@@ -1,12 +1,13 @@
 //global variable declarations
 var textInput = document.querySelector(".search-box");
+var citySearch = "";
 console.log(textInput);
 
 var searchSubmitHandler = function(event) {
     // prevent page from refreshing
   event.preventDefault();
 
-  var citySearch = textInput.value.trim();
+  citySearch = textInput.value.trim();
   console.log(citySearch);
 
   if(citySearch) {
@@ -19,11 +20,11 @@ var searchSubmitHandler = function(event) {
 
 var getWeatherApi = function() {
     // event.preventDefault();
-    fetch("https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=4bdf76bd7f935435d6ca49a5f4268f54")
+    fetch("https://api.openweathermap.org/data/2.5/forecast?q=" +citySearch+ "&appid=4bdf76bd7f935435d6ca49a5f4268f54")
     .then(function(response) {
       // request was successful
       if (response.ok) {
-        console.log(response);
+        // console.log(response);
         response.json().then(function(data) {
           console.log(data);
         });
@@ -34,6 +35,7 @@ var getWeatherApi = function() {
     .catch(function(error) {
       alert('Unable to connect to OpenWeather API');
     });
+    
 
 }
 
