@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css"/>
     <title>
         Weather Dashboard
@@ -12,12 +12,51 @@
   </head>
   <body>
       <header>
-
+        <h1 class="row flex-row justify-space-between page-banner">Weather Dashboard</h1>
       </header>
-      <main>
-
+    <main class="container">
+        <div class ="row">
+        <div class="col-3 search-container">
+            <form class="search-form">
+                <label class="row search-header">Search for a City</label>
+                <textarea id="row search-command" rows="1" class="search-box"></textarea>
+                <button class="row search-button" id="search-now">Search</button>
+            </form>
+        </div>
+        <div class="col-9 weather-results">
+            <div class="city-hero">
+                The main City weather info is displayed here
+                <h2 class="city-hero-name">City Name Goes Here</h2>
+                <h3 class="temperature">Temperature:</h3>
+                <h3 class="wind">Wind:</h3>
+                <h3 class="humidity">Humidity:</h3>
+                <h3 class="uv-index">UV Index:</h3>
+            </div>
+                <div class="row city-forecast">
+                    <div class="col-4 card day">
+                        This is the first day forecast
+                    </div>
+                    <div class="col-2 card day">
+                        This is the second day forecast
+                    </div>
+                    <div class="col-2 card day">
+                        This is the Third day forecast
+                    </div>
+                    <div class="col-2 card day">
+                        This is the Fourth day forecast
+                    </div>
+                    <div class="col-2 card day">
+                        This is the Fifth day forecast
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
       </main>
-
+      <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>    
       <script src="assets/js/script.js"></script>
   </body>
 

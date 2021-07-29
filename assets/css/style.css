@@ -1,0 +1,34 @@
+.page-banner {
+    background-color: navy;
+    color: white;
+    font-size: 42px;
+    font-weight: bold;
+    height: 75px;
+}
+
+.city-hero {
+    border: solid 2px black;
+    border-radius: 15px;
+
+}
+
+.city-forecast {
+    border: solid 3px blue;
+    height: 40%;
+    border-radius: 15px;
+}
+
+.day {
+    background-color: orange;
+}
+
+.search-button {
+    width: 100px;
+    height: 40px;
+    border-radius: 15px;
+    background-color: blue;
+    border: solid 2px black;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
