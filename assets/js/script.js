@@ -29,7 +29,18 @@ function getForecastApi(city){
   .then(function(data) {
     console.log(data);
     //add UV index to hero
-    $(".uv-index").text("UV Index " + data.current.uvi);
+    var UVI = document.createElement("span");
+    UVI.innerHTML = data.daily[0].uvi;
+    // conditionally format UV index based on low, moderate, or high
+    if (UVI.innerHTML>0 && UVI.innerHTML<=3) {
+      UVI.setAttribute("class", "badge-success");
+    } else if (UVI.innerHTML>3 && UVI.innerHTML <=5) {
+      UVI.setAttribute("class", "badge-warning"); 
+    } else if (UVI.innerHTML>6){
+      UVI.setAttribute("class", "badge-danger"); 
+    };
+  
+    $(".uv-index").append(UVI);
 
     //loop over forecast div to create 5 day forecast
       for (i = 0; i<forecastLength; i++){
@@ -118,6 +129,13 @@ var getWeatherApi = function() {
       console.log(searchedCitylong);
       //change city name header to city name
       $(".city-hero-name").text(data.city.name);
+      var todayIcon = document.createElement("img");
+      todayIcon.classList = "icon";
+      todayIcon.src = "http://openweathermap.org/img/wn/" 
+      + data.list[0].weather[0].icon
+      + "@2x.png";
+      $(".city-hero-name").append(todayIcon);
+
       //update temperature
       $(".temperature").text("Temperature: " + data.list[0].main.temp + '°C');
       $(".wind").text("Wind: " + data.list[0].wind.speed + 'km/h');
