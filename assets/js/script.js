@@ -31,49 +31,46 @@ function getForecastApi(city){
     //add UV index to hero
     $(".uv-index").text("UV Index " + data.current.uvi);
 
+    //loop over forecast div to create 5 day forecast
+      for (i = 0; i<forecastLength; i++){
       var forecastDay1 = document.createElement("div");
       forecastDay1.classList = "col-4 card day1";
-
+      
+      //date value for forecast
       var forecastdate = document.createElement("h3");
-      forecastdate.classList = "day1";
-      forecastdate.textContent = new Date(data.daily[0].dt*1000);
+      forecastdate.classList = "forecast";
+      forecastdate.textContent = new Date(data.daily[i].dt*1000);
       forecastDay1.appendChild(forecastdate);
 
+      //weather icon
       var forecastIcon = document.createElement("img");
       forecastIcon.classList = "icon";
       forecastIcon.src = "http://openweathermap.org/img/wn/" 
-      + data.daily[0].weather[0].icon
+      + data.daily[i].weather[0].icon
       + "@2x.png"
       forecastDay1.appendChild(forecastIcon);
 
+      //forecast temperature
       var forecastTemp = document.createElement("h4");
       forecastTemp.classList = "day1";
-      forecastTemp.textContent = "Temperature" + data.daily[0].temp.max;
+      forecastTemp.textContent = "Temperature" + data.daily[i].temp.max;
       forecastDay1.appendChild(forecastTemp);
 
+      //forecast wind
       var forecastWind =document.createElement("h4");
       forecastWind.classList = "day1";
-      forecastWind.textContent = "Wind: " + data.daily[0].wind_speed;
+      forecastWind.textContent = "Wind: " + data.daily[i].wind_speed;
       forecastDay1.appendChild(forecastWind);
 
+      //forecast humidity
       var forecastHumidity =document.createElement("h4");
       forecastHumidity.classList = "day1";
-      forecastHumidity.textContent = "Humidity: " + data.daily[0].humidity;
+      forecastHumidity.textContent = "Humidity: " + data.daily[i].humidity;
       forecastDay1.appendChild(forecastHumidity);
 
+      //append forecast to div container
       document.querySelector(".city-forecast").appendChild(forecastDay1);
-
-
-    //add forecast data to respective div elements
-    // $(".day1").add("h3").addClass("day-1-date").text(data.daily[0].dt);
-
-
-    // addClass("forecast-1-date");
-    // $(".forecast-1-date").text(data.daily[0].dt);
-    // $("n1").append(this);
-    // $("#n1").add("h4").addClass("forecast-1-temp").text(data.daily[0].temp.max);
-    // $("n1").append(this);
-
+      }
 })
 };
 
