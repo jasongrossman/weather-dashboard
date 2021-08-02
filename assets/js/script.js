@@ -4,6 +4,34 @@ var citySearch = "";
 var searchedCitylat = "";
 var searchedCitylong = "";
 var forecastLength = 5;
+var forecastDay1 = "";
+var searchHistoryLog = [];
+
+var clearResults = function() {
+  $(".day1").remove();
+  $("span").remove();
+  $(".search-command").text("");
+  $(".city-history").remove();
+}
+
+      //add city search to history column
+  var retainSearch = function() {
+      // citySearch.push(searchHistoryLog);
+      $(".city-history").remove();
+      for (i=0; i<searchHistoryLog.length; i++) {
+        var cityHistory = document.createElement("button");
+        cityHistory.className = "city-history";
+        cityHistory.textContent = searchHistoryLog[i];
+        cityHistory.value = searchHistoryLog[i];
+        $(".search-container").append(cityHistory);
+      }
+      $(".city-history").on("click", function() {
+        citySearch = this.value;
+        clearResults();
+        getWeatherApi();
+      });
+
+}
 
 function getForecastApi(city){
   //create second API call to generate 5 day forecast and UV index
@@ -44,7 +72,7 @@ function getForecastApi(city){
 
     //loop over forecast div to create 5 day forecast
       for (i = 0; i<forecastLength; i++){
-      var forecastDay1 = document.createElement("div");
+      forecastDay1 = document.createElement("div");
       forecastDay1.classList = "col-4 card day1";
       
       //date value for forecast
@@ -64,37 +92,38 @@ function getForecastApi(city){
       //forecast temperature
       var forecastTemp = document.createElement("h4");
       forecastTemp.classList = "day1";
-      forecastTemp.textContent = "Temperature" + data.daily[i].temp.max;
+      forecastTemp.textContent = "Temperature: " + data.daily[i].temp.max + '°C';
       forecastDay1.appendChild(forecastTemp);
 
       //forecast wind
       var forecastWind =document.createElement("h4");
       forecastWind.classList = "day1";
-      forecastWind.textContent = "Wind: " + data.daily[i].wind_speed;
+      forecastWind.textContent = "Wind: " + data.daily[i].wind_speed + "km/h";
       forecastDay1.appendChild(forecastWind);
 
       //forecast humidity
       var forecastHumidity =document.createElement("h4");
       forecastHumidity.classList = "day1";
-      forecastHumidity.textContent = "Humidity: " + data.daily[i].humidity;
+      forecastHumidity.textContent = "Humidity: " + data.daily[i].humidity +"%";
       forecastDay1.appendChild(forecastHumidity);
 
       //append forecast to div container
       document.querySelector(".city-forecast").appendChild(forecastDay1);
       }
 })
+  retainSearch();
+
 };
 
 var searchSubmitHandler = function(event) {
     // prevent page from refreshing
   event.preventDefault();
-
   citySearch = textInput.value.trim();
   console.log(citySearch);
 
   if(citySearch) {
-      getWeatherApi(citySearch);
-
+    clearResults();
+    getWeatherApi(citySearch);
   } else {
       alert("Please input a city name");
   }
@@ -125,10 +154,9 @@ var getWeatherApi = function() {
       console.log(data);
       searchedCitylat = data.city.coord.lat;
       searchedCitylong = data.city.coord.lon;
-      console.log(searchedCitylat);
-      console.log(searchedCitylong);
       //change city name header to city name
       $(".city-hero-name").text(data.city.name);
+      searchHistoryLog.push(data.city.name);
       var todayIcon = document.createElement("img");
       todayIcon.classList = "icon";
       todayIcon.src = "http://openweathermap.org/img/wn/" 
@@ -142,6 +170,7 @@ var getWeatherApi = function() {
       $(".humidity").text("Humidity: " + data.list[0].main.humidity + "%");
       // $(".uv-index").text("UV Index: " + data.list[0].)
       getForecastApi(citySearch);
+
     })
   }
 
