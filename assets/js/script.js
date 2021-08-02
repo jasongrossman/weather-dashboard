@@ -5,7 +5,23 @@ var searchedCitylat = "";
 var searchedCitylong = "";
 var forecastLength = 5;
 var forecastDay1 = "";
-var searchHistoryLog = [];
+var searchHistoryLog = JSON.parse(localStorage.getItem("cities")) || [];
+
+var getOldSearch = function() {
+  for (i=0; i<searchHistoryLog.length; i++) {
+    var cityHistory = document.createElement("button");
+    cityHistory.className = "city-history";
+    cityHistory.textContent = searchHistoryLog[i];//JSON.parse(localStorage.getItem(searchHistoryLog[i]));
+    cityHistory.value = searchHistoryLog[i];
+    $(".search-container").append(cityHistory);
+  }
+  //add event listener
+  $(".city-history").on("click", function() {
+    citySearch = this.value;
+    clearResults();
+    getWeatherApi();
+  });
+}
 
 //clear old search results to eliminate duplication
 var clearResults = function() {
@@ -22,7 +38,7 @@ var clearResults = function() {
       for (i=0; i<searchHistoryLog.length; i++) {
         var cityHistory = document.createElement("button");
         cityHistory.className = "city-history";
-        cityHistory.textContent = searchHistoryLog[i];
+        cityHistory.textContent = searchHistoryLog[i];//JSON.parse(localStorage.getItem(searchHistoryLog[i]));
         cityHistory.value = searchHistoryLog[i];
         $(".search-container").append(cityHistory);
       }
@@ -32,7 +48,7 @@ var clearResults = function() {
         clearResults();
         getWeatherApi();
       });
-
+      var savedSearch =  localStorage.setItem("cities", JSON.stringify(searchHistoryLog));
 }
 
   //create second API call to generate 5 day forecast and UV index
@@ -160,6 +176,7 @@ var getWeatherApi = function() {
       //change city name header to city name
       $(".city-hero-name").text(data.city.name);
       searchHistoryLog.push(data.city.name);
+      localStorage.setItem("cities", JSON.stringify(searchHistoryLog));
       var todayIcon = document.createElement("img");
       todayIcon.classList = "icon";
       todayIcon.src = "http://openweathermap.org/img/wn/" 
@@ -180,4 +197,5 @@ var getWeatherApi = function() {
 //event handler for search function
 $("#search-now").on("click", searchSubmitHandler);
 
+getOldSearch();
 
