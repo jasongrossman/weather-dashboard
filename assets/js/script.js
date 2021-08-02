@@ -7,6 +7,7 @@ var forecastLength = 5;
 var forecastDay1 = "";
 var searchHistoryLog = JSON.parse(localStorage.getItem("cities")) || [];
 
+//populate search history through local storage
 var getOldSearch = function() {
   for (i=0; i<searchHistoryLog.length; i++) {
     var cityHistory = document.createElement("button");
