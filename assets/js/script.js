@@ -7,6 +7,7 @@ var forecastLength = 5;
 var forecastDay1 = "";
 var searchHistoryLog = [];
 
+//clear old search results to eliminate duplication
 var clearResults = function() {
   $(".day1").remove();
   $("span").remove();
@@ -25,6 +26,7 @@ var clearResults = function() {
         cityHistory.value = searchHistoryLog[i];
         $(".search-container").append(cityHistory);
       }
+      //add event listener
       $(".city-history").on("click", function() {
         citySearch = this.value;
         clearResults();
@@ -33,8 +35,8 @@ var clearResults = function() {
 
 }
 
-function getForecastApi(city){
   //create second API call to generate 5 day forecast and UV index
+function getForecastApi(city){
   fetch("https://api.openweathermap.org/data/2.5/onecall?" 
   + "lat=" + searchedCitylat
   + "&lon=" + searchedCitylong
@@ -115,6 +117,7 @@ function getForecastApi(city){
 
 };
 
+//on search event handler
 var searchSubmitHandler = function(event) {
     // prevent page from refreshing
   event.preventDefault();
@@ -129,7 +132,7 @@ var searchSubmitHandler = function(event) {
   }
   };
 
-
+//API call to populate hero weather display
 var getWeatherApi = function() {
     // event.preventDefault();
     fetch("https://api.openweathermap.org/data/2.5/forecast?q=" 
@@ -173,11 +176,6 @@ var getWeatherApi = function() {
 
     })
   }
-
-
-    // var displayWeather = function() {
-    //     response.json().then(function(data)
-    // }
 
 //event handler for search function
 $("#search-now").on("click", searchSubmitHandler);

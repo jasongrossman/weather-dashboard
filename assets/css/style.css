@@ -4,8 +4,9 @@
     font-size: 42px;
     font-weight: bold;
     height: 75px;
+    margin: auto;
+    padding-bottom: 10px;
 }
-
 .city-hero {
     border: solid 2px black;
     border-radius: 15px;
@@ -20,6 +21,10 @@
 
 .day {
     background-color: orange;
+}
+
+.search-form {
+    align-content: left;
 }
 
 .search-button {
